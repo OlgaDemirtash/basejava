@@ -58,7 +58,7 @@ public class ArrayStorage {
             return storage[index];
         }
     }
-//
+
     public void delete(String uuid) {
         int index = getResumeIndex(uuid);
         if (index == -1) {
