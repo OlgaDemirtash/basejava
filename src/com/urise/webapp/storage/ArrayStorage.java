@@ -8,8 +8,9 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[3];
+    public static final int STORAGE_LIMIT = 10000;
     private int size;
+    protected final Resume[] storage = new Resume[STORAGE_LIMIT];
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -32,21 +33,11 @@ public class ArrayStorage {
     public void save(Resume r) {
         if (size == storage.length) {
             System.out.println("Сохранение невозможно.Хранилище переполнено.");
-            return;
-        }
-        if (r == null) {
-            System.out.println("Ошибка сохранения резюме.Пустой объект.");
-            return;
-        }
-        if (r.uuid == null) {
-            System.out.println("Ошибка сохранения резюме.Не задан UUID.");
-            return;
-        }
-        if (get(r.uuid) == null) {
+        } else if (get(r.uuid) != null) {
+            System.out.printf("Ошибка сохранения.Резюме с UUID %s уже существует.\n", r.uuid);
+        } else {
             storage[size] = r;
             size++;
-        } else {
-            System.out.printf("Ошибка сохранения.Резюме с UUID %s уже существует.\n", r.uuid);
         }
     }
 
@@ -63,10 +54,6 @@ public class ArrayStorage {
         int index = getResumeIndex(uuid);
         if (index == -1) {
             System.out.printf("Ошибка при удалении. Резюме с UUID %s не найдено.\n", uuid);
-            return;
-        }
-        if (size == 1) {
-            clear();
             return;
         }
         storage[index] = storage[size - 1];
@@ -91,7 +78,7 @@ public class ArrayStorage {
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 index = i;
-                break;
+                return index;
             }
         }
         return index;
