@@ -31,7 +31,11 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
-    public Resume get(String uuid) {
+    public Resume[] getAll() {
+        return Arrays.copyOf(storage, size);
+    }
+
+    public final Resume get(String uuid) {
         int index = getIndex(uuid);
         if (index == -1) {
             System.out.println("Резюме " + uuid + " не существует");
@@ -40,35 +44,31 @@ public abstract class AbstractArrayStorage implements Storage {
         return storage[index];
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
-    }
-
-    public void save(Resume r) {
+    public final void save(Resume r) {
         if (size >= storage.length) {
             System.out.println("Сохранение невозможно.Хранилище переполнено.");
         } else if (getIndex(r.getUuid()) > -1) {
             System.out.println("Ошибка сохранения.Резюме с UUID" + r.getUuid() + "уже существует.");
         } else {
-            insert(r);
+            insertResume(r);
             size++;
         }
     }
 
-    public void delete(String uuid) {
+    public final void delete(String uuid) {
         int index = getIndex(uuid);
         if (index == -1) {
             System.out.println("Ошибка при удалении. Резюме с UUID" + uuid + "не найдено.");
             return;
         }
-        remove(index);
+        removeResume(index);
         storage[size - 1] = null;
         size--;
     }
 
-    protected abstract void insert(Resume r);
+    protected abstract void insertResume(Resume r);
 
-    protected abstract void remove(int index);
+    protected abstract void removeResume(int index);
 
     protected abstract int getIndex(String uuid);
 
