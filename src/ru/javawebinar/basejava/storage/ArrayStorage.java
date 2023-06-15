@@ -7,15 +7,12 @@ import ru.javawebinar.basejava.model.Resume;
  */
 public class ArrayStorage extends AbstractArrayStorage {
 
-    public void save(Resume r) {
-        if (size >= storage.length) {
-            System.out.println("Сохранение невозможно.Хранилище переполнено.");
-        } else if (getIndex(r.getUuid()) != -1) {
-            System.out.println("Ошибка сохранения.Резюме с UUID" + r.getUuid() + "уже существует.");
-        } else {
-            storage[size] = r;
-            size++;
-        }
+    public void insert(Resume r) {
+        storage[size] = r;
+    }
+
+    public void remove(int index) {
+        storage[index] = storage[size - 1];
     }
 
     protected int getIndex(String uuid) {
