@@ -1,5 +1,8 @@
 package ru.javawebinar.basejava.storage;
 
+import ru.javawebinar.basejava.exception.ExistStorageException;
+import ru.javawebinar.basejava.exception.NotExistStorageException;
+import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
@@ -25,11 +28,10 @@ public abstract class AbstractArrayStorage implements Storage {
     public void update(Resume r) {
         int index = getIndex(r.getUuid());
         if (index == -1) {
-            System.out.println("Ошибка при изменении. Резюме с UUID " + r.getUuid() + " не найдено.");
-        } else {
+            throw new NotExistStorageException(r.getUuid());
+        } else
             storage[index] = r;
         }
-    }
 
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
@@ -37,18 +39,17 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public final Resume get(String uuid) {
         int index = getIndex(uuid);
-        if (index == -1) {
-            System.out.println("Резюме " + uuid + " не существует");
-            return null;
+        if (index < 0) {
+            throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }
 
     public final void save(Resume r) {
         if (size >= storage.length) {
-            System.out.println("Сохранение невозможно.Хранилище переполнено.");
+            throw new StorageException("Хранилище переполнено", r.getUuid());
         } else if (getIndex(r.getUuid()) > -1) {
-            System.out.println("Ошибка сохранения.Резюме с UUID" + r.getUuid() + "уже существует.");
+            throw new ExistStorageException(r.getUuid());
         } else {
             insertResume(r);
             size++;
@@ -58,8 +59,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void delete(String uuid) {
         int index = getIndex(uuid);
         if (index == -1) {
-            System.out.println("Ошибка при удалении. Резюме с UUID" + uuid + "не найдено.");
-            return;
+            throw new NotExistStorageException(uuid);
         }
         removeResume(index);
         storage[size - 1] = null;
