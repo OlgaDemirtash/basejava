@@ -46,7 +46,7 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public final void save(Resume r) {
-        if (size >= storage.length) {
+        if (size == storage.length) {
             throw new StorageException("Хранилище переполнено", r.getUuid());
         } else if (getIndex(r.getUuid()) > -1) {
             throw new ExistStorageException(r.getUuid());

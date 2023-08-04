@@ -3,7 +3,9 @@ package ru.javawebinar.basejava.storage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
+import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractArrayStorageTest {
@@ -39,10 +41,14 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void update() throws Exception {
         Resume r1 = new Resume(UUID_1);
-        Resume r2;
         storage.update(r1);
-        r2 = storage.get(UUID_1);
-        Assert.assertEquals(r1, r2);
+        Assert.assertEquals(r1, storage.get(UUID_1));
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void updateNotExistException() throws Exception {
+        Resume r = new Resume();
+        storage.update(r);
     }
 
     @Test
@@ -58,20 +64,44 @@ public abstract class AbstractArrayStorageTest {
     public void save() throws Exception {
         Resume r = new Resume(UUID_4);
         storage.save(r);
-        Assert.assertEquals(r,storage.get(UUID_4));
+        Assert.assertEquals(r, storage.get(UUID_4));
+    }
+
+    @Test(expected = StorageException.class)
+    public void saveStorageOverflow() {
+        try {
+            for (int i = 0; i < 9997; i++) {
+                storage.save(new Resume());
+            }
+        } catch (StorageException e) {
+            Assert.fail("Переполнение произошло раньше времени");
+        }
+        Resume r = new Resume();
+        storage.save(r);
+    }
+
+    @Test(expected = ExistStorageException.class)
+    public void saveExistStorageException() {
+        Resume r = new Resume(UUID_2);
+        storage.save(r);
     }
 
     @Test(expected = NotExistStorageException.class)
     public void delete() throws Exception {
         Resume r = new Resume(UUID_2);
         storage.delete(r.getUuid());
-        Assert.assertEquals(r,storage.get(r.getUuid()));
+        Assert.assertEquals(r, storage.get(r.getUuid()));
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void deleteNotExist() throws Exception {
+        storage.delete("dummy");
     }
 
     @Test
     public void get() throws Exception {
-    Resume r1 = new Resume(UUID_2);
-    Assert.assertEquals(r1,storage.get(UUID_2));
+        Resume r1 = new Resume(UUID_2);
+        Assert.assertEquals(r1, storage.get(UUID_2));
     }
 
     @Test(expected = NotExistStorageException.class)

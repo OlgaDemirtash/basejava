@@ -9,9 +9,9 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
     public void insertResume(Resume r) {
         int index = getIndex(r.getUuid());
-        index = Math.abs(index + 1);
-        System.arraycopy(storage, index, storage, index + 1, size - index + 1);
-        storage[index] = r;
+        int insertIdx = -index - 1;
+        System.arraycopy(storage, insertIdx, storage, insertIdx + 1, size - insertIdx);
+        storage[insertIdx] = r;
     }
 
     public void removeResume(int index) {
