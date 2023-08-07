@@ -36,7 +36,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void size() throws Exception {
-    assertSize(3);
+        assertSize(3);
     }
 
     private void assertSize(int size) throws Exception {
@@ -91,7 +91,6 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = ExistStorageException.class)
     public void saveExistStorageException() {
         storage.save(RESUME_2);
-
     }
 
     @Test(expected = NotExistStorageException.class)
