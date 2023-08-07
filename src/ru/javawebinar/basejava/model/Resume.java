@@ -9,6 +9,7 @@ public class Resume implements Comparable<Resume> {
 
     private final String uuid;
 
+
     public Resume() {
         this(UUID.randomUUID().toString());
     }
