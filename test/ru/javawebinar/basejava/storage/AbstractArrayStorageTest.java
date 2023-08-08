@@ -44,7 +44,7 @@ public abstract class AbstractArrayStorageTest {
     public void clear() throws Exception {
         storage.clear();
         assertSize(0);
-        Resume[] expected = new Resume[0];
+        Resume[] expected = new Resume[]{};
         Assert.assertArrayEquals(expected, storage.getAll());
     }
 
