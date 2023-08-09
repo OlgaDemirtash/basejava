@@ -10,6 +10,6 @@ public class ListStorageTest extends AbstractStorageTest {
 
     @Override
     public void saveStorageOverflow() {
-        throw new StorageException("Переполнение хранилища", "dummy");
+        throw new StorageException("dummy", "dummy");
     }
 }
