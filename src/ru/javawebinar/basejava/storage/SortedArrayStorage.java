@@ -14,8 +14,19 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         storage[insertIdx] = r;
     }
 
+    @Override
     public void removeResume(int index) {
         System.arraycopy(storage, index + 1, storage, index, size - index - 1);
+    }
+
+    @Override
+    protected void updateResume(int index, Resume r) {
+        storage[index] = r;
+    }
+
+    @Override
+    protected Resume getObjectByIndex(int index) {
+       return storage[index];
     }
 
     @Override
@@ -23,4 +34,5 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         Resume searchKey = new Resume(uuid);
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
+
 }
