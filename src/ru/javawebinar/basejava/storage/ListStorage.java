@@ -3,12 +3,13 @@ package ru.javawebinar.basejava.storage;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Array based storage for Resumes
  */
 public class ListStorage extends AbstractStorage {
-    ArrayList<Resume> storage = new ArrayList<>();
+    protected final List<Resume> storage = new ArrayList<>();
     @Override
     public int size() {
         return storage.size();
@@ -25,28 +26,35 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected int getIndex(String uuid) {
-        Resume r = new Resume(uuid);
-        return storage.indexOf(r);
+    protected Object getSearchKey(String uuid) {
+        for (Resume r : storage) {
+            if (r.getUuid().equals(uuid)) {
+                return storage.indexOf(r);}
+        }
+        return -1;
+    }
+    @Override
+    protected void aUpdate(Resume r, Object searchKey) {
+        storage.set((int) searchKey, r);
     }
 
     @Override
-    protected void insertResume(Resume r) {
+    protected void aSave(Resume r) {
         storage.add(r);
     }
 
     @Override
-    protected void removeResume(int index) {
-        storage.remove(index);
+    protected Resume aGet(Object searchKey) {
+        return storage.get((int) searchKey);
     }
 
     @Override
-    protected Resume getObjectByIndex(int index) {
-        return storage.get(index);
+    protected void aDelete(Object searchKey) {
+        storage.remove((int) searchKey);
     }
 
     @Override
-    protected void updateResume(int index, Resume r) {
-        storage.set(index,r);
+    public boolean isExist(Object searchKey) {
+        return (int) searchKey >= 0;
     }
 }

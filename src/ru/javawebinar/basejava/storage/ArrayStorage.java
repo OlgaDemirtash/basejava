@@ -16,18 +16,9 @@ public class ArrayStorage extends AbstractArrayStorage {
         storage[index] = storage[size - 1];
     }
 
-    @Override
-    protected void updateResume(int index, Resume r) {
-        storage[index]  = r;
-    }
 
     @Override
-    protected Resume getObjectByIndex(int index) {
-        return storage[index];
-    }
-
-    @Override
-    protected int getIndex(String uuid) {
+    protected Object getSearchKey(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
