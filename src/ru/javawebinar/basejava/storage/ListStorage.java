@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class ListStorage extends AbstractStorage {
     protected final List<Resume> storage = new ArrayList<>();
+
     @Override
     public int size() {
         return storage.size();
