@@ -30,12 +30,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void aUpdate(Resume r, Object searchKey) {
+    protected void doUpdate(Resume r, Object searchKey) {
         storage[(int) searchKey] = r;
     }
 
     @Override
-    protected void aSave(Resume r) {
+    protected void doSave(Resume r) {
         if (size == storage.length) {
             throw new StorageException("Хранилище переполнено", r.getUuid());
         } else {
@@ -45,12 +45,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume aGet(Object searchKey) {
+    protected Resume doGet(Object searchKey) {
         return storage[(int) searchKey];
     }
 
     @Override
-    protected void aDelete(Object searchKey) {
+    protected void doDelete(Object searchKey) {
         removeResume((int) searchKey);
         storage[size - 1] = null;
         size--;
