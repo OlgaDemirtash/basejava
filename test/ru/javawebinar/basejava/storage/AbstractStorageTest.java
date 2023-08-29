@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
-import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.List;
@@ -18,12 +17,12 @@ public abstract class AbstractStorageTest {
     private static final String FNAME_1 = "Иванов Александр";
     private static final String FNAME_2 = "Иванов Константин";
     private static final String FNAME_3 = "Иванов Константин";
-    private static final String FNAME_4 = "Иванов Павел";
+    private static final String FNAME_4 = "Иванов Петр";
     protected static final String UUID_NOT_EXIST = "dummy";
     protected static final Resume RESUME_1;
     protected static final Resume RESUME_2;
     protected static final Resume RESUME_3;
-    private static final Resume RESUME_4;
+    protected static final Resume RESUME_4;
     protected Storage storage;
 
     static {
@@ -31,6 +30,11 @@ public abstract class AbstractStorageTest {
         RESUME_2 = new Resume(UUID_2, FNAME_2);
         RESUME_3 = new Resume(UUID_3, FNAME_3);
         RESUME_4 = new Resume(UUID_4, FNAME_4);
+
+//        RESUME_1 = new Resume(UUID_1);
+//        RESUME_2 = new Resume(UUID_2);
+//        RESUME_3 = new Resume(UUID_3);
+//        RESUME_4 = new Resume(UUID_4);
     }
 
     protected AbstractStorageTest(Storage storage) {
@@ -85,19 +89,6 @@ public abstract class AbstractStorageTest {
         storage.save(RESUME_4);
         assertGet(RESUME_4);
         assertSize(4);
-    }
-
-    @Test(expected = StorageException.class)
-    public void saveStorageOverflow() {
-        storage.clear();
-        try {
-            for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume());
-            }
-        } catch (StorageException e) {
-            Assert.fail("Переполнение произошло раньше времени");
-        }
-        storage.save(RESUME_4);
     }
 
     @Test(expected = ExistStorageException.class)

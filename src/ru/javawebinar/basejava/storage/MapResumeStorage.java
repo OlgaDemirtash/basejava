@@ -4,7 +4,7 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.*;
 
-public class MapFullNameStorage extends AbstractStorage {
+public class MapResumeStorage extends AbstractStorage {
     protected final Map<String, Resume> storage = new HashMap<>();
     //Сравнение через Лямбда выражение
     //private static final Comparator<Resume> RESUME_COMPARATOR = (o1, o2) -> o1.getUuid().compareTo(o2.getUuid());
@@ -29,7 +29,7 @@ public class MapFullNameStorage extends AbstractStorage {
     //private static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getUuid).thenComparing(Resume::getFullName);
 
 
-    private static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
+    //private static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
     @Override
     public int size() {
@@ -41,18 +41,12 @@ public class MapFullNameStorage extends AbstractStorage {
         storage.clear();
     }
 
-    @Override
-    public List<Resume> getAllSorted() {
-        Resume[] storageArray = storage.values().toArray(new Resume[0]);
-        List<Resume> storageList = Arrays.asList(Arrays.copyOfRange(storageArray, 0, storageArray.length));
-        storageList.sort(RESUME_COMPARATOR);
-        return storageList;
-    }
+
 
     @Override
     protected Object getSearchKey(String uuid) {
         if (storage.containsKey(uuid)) {
-            return storage.get(uuid).getFullName();
+            return storage.get(uuid);
         } else {
             return null;
         }
@@ -73,10 +67,15 @@ public class MapFullNameStorage extends AbstractStorage {
         storage.replace(doGet(searchKey).getUuid(), r);
     }
 
+    protected List<Resume> doGetAll() {
+        Resume[] storageArray = storage.values().toArray(new Resume[0]);
+        return Arrays.asList(Arrays.copyOfRange(storageArray, 0, storageArray.length));
+    }
+
     @Override
     protected Resume doGet(Object searchKey) {
         for (Map.Entry<String, Resume> entry : storage.entrySet()) {
-            if (entry.getValue().getFullName() == searchKey) {
+            if (entry.getValue().equals(searchKey)) {
                 return entry.getValue();
             }
         }
@@ -86,7 +85,7 @@ public class MapFullNameStorage extends AbstractStorage {
     @Override
     public boolean isExist(Object searchKey) {
         for (Map.Entry<String, Resume> entry : storage.entrySet()) {
-            if (entry.getValue().getFullName() == searchKey) {
+            if (entry.getValue().equals(searchKey)) {
                 return true;
             }
         }

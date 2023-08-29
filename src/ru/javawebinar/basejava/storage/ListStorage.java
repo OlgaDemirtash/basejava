@@ -57,6 +57,11 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
+    protected List<Resume> doGetAll() {
+        return null;
+    }
+
+    @Override
     public boolean isExist(Object searchKey) {
         return (int) searchKey >= 0;
     }
