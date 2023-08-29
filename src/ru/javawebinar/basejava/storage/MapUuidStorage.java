@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MapUuidStorage extends AbstractStorage {
+
     protected final Map<String, Resume> storage = new HashMap<>();
 
     @Override
@@ -19,7 +20,6 @@ public class MapUuidStorage extends AbstractStorage {
     public void clear() {
         storage.clear();
     }
-
 
     @Override
     protected Object getSearchKey(String uuid) {

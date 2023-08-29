@@ -9,6 +9,7 @@ import java.util.List;
  * Array based storage for Resumes
  */
 public class ListStorage extends AbstractStorage {
+
     protected final List<Resume> storage = new ArrayList<>();
 
     @Override
@@ -58,7 +59,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected List<Resume> doGetAll() {
-        return null;
+        return storage;
     }
 
     @Override

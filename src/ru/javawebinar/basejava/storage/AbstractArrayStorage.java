@@ -10,14 +10,14 @@ import java.util.stream.Collectors;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage{
+
     protected static final int STORAGE_LIMIT = 10000;
     protected final Resume[] storage;
     protected int size = 0;
 
     {
         storage = new Resume[STORAGE_LIMIT];
-
     }
 
     @Override
@@ -63,7 +63,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return (int) searchKey >= 0;
     }
 
-
     @Override
     protected List<Resume> doGetAll() {
         return Arrays.stream(Arrays.copyOf(storage, size)).collect(Collectors.toList());
@@ -74,5 +73,4 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract void removeResume(int index);
 
     protected abstract Object getSearchKey(String uuid);
-
 }

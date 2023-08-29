@@ -7,7 +7,6 @@ import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
 
-
     protected AbstractArrayStorageTest(Storage storage) {
         super(storage);
     }
@@ -24,5 +23,4 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
         }
         storage.save(RESUME_4);
     }
-
 }

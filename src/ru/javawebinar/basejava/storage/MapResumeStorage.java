@@ -2,9 +2,13 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MapResumeStorage extends AbstractStorage {
+
     protected final Map<String, Resume> storage = new HashMap<>();
     //Сравнение через Лямбда выражение
     //private static final Comparator<Resume> RESUME_COMPARATOR = (o1, o2) -> o1.getUuid().compareTo(o2.getUuid());
@@ -40,8 +44,6 @@ public class MapResumeStorage extends AbstractStorage {
     public void clear() {
         storage.clear();
     }
-
-
 
     @Override
     protected Object getSearchKey(String uuid) {
