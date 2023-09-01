@@ -14,10 +14,10 @@ public abstract class AbstractStorageTest {
     protected static final String UUID_2 = "uuid2";
     protected static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
-    private static final String FNAME_1 = "Иванов Александр";
-    private static final String FNAME_2 = "Иванов Константин";
-    private static final String FNAME_3 = "Иванов Константин";
-    private static final String FNAME_4 = "Иванов Петр";
+    private static final String FULL_NAME_1 = "Иванов Александр";
+    private static final String FULL_NAME_2 = "Иванов Константин";
+    private static final String FULL_NAME_3 = "Иванов Константин";
+    private static final String FULL_NAME_4 = "Иванов Петр";
     protected static final String UUID_NOT_EXIST = "dummy";
     protected static final Resume RESUME_1;
     protected static final Resume RESUME_2;
@@ -26,10 +26,10 @@ public abstract class AbstractStorageTest {
     protected Storage storage;
 
     static {
-        RESUME_1 = new Resume(UUID_1, FNAME_1);
-        RESUME_2 = new Resume(UUID_2, FNAME_2);
-        RESUME_3 = new Resume(UUID_3, FNAME_3);
-        RESUME_4 = new Resume(UUID_4, FNAME_4);
+        RESUME_1 = new Resume(UUID_1, FULL_NAME_1);
+        RESUME_2 = new Resume(UUID_2, FULL_NAME_2);
+        RESUME_3 = new Resume(UUID_3, FULL_NAME_3);
+        RESUME_4 = new Resume(UUID_4, FULL_NAME_4);
 
 //        RESUME_1 = new Resume(UUID_1);
 //        RESUME_2 = new Resume(UUID_2);

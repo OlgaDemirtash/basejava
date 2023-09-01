@@ -37,7 +37,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage{
     }
 
     @Override
-    protected void doSave(Resume r) {
+    protected void doSave(Resume r, Object searchKey) {
+
         if (size == storage.length) {
             throw new StorageException("Хранилище переполнено", r.getUuid());
         } else {
