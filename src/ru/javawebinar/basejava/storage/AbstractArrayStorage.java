@@ -42,7 +42,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage{
         if (size == storage.length) {
             throw new StorageException("Хранилище переполнено", r.getUuid());
         } else {
-            insertResume(r);
+            insertResume(r, searchKey);
             size++;
         }
     }
@@ -69,7 +69,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage{
         return Arrays.stream(Arrays.copyOf(storage, size)).collect(Collectors.toList());
     }
 
-    protected abstract void insertResume(Resume r);
+    protected abstract void insertResume(Resume r, Object searchKey);
 
     protected abstract void removeResume(int index);
 
