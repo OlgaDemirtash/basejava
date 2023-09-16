@@ -9,9 +9,9 @@ public class TextSection extends AbstractSection {
         this.info = info;
     }
 
-    public void print() {
+    @Override
+    public String toString() {
 
-        System.out.println(info);
+        return info;
     }
-
 }

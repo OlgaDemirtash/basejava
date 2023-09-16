@@ -6,10 +6,10 @@ import java.util.Objects;
 
 public class Period {
 
-    LocalDate start;
-    LocalDate end;
-    String title;
-    String description;
+    private LocalDate start;
+    private LocalDate end;
+    private String title;
+    private String description;
 
     public Period(LocalDate start, LocalDate end, String title, String description) {
 
@@ -65,7 +65,7 @@ public class Period {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/yyyy");
 
         return start.format(dateTimeFormatter) + " - " +
-                ((end == null) ? "Сейчас" : end.format(dateTimeFormatter)) + " " + title + " \n" + description;
+                ((end == null) ? "Сейчас" : end.format(dateTimeFormatter)) + " " + title + ((description == "") ? "" : " \n" + description);
     }
 
     @Override

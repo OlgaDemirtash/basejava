@@ -4,7 +4,7 @@ import org.junit.Test;
 import ru.javawebinar.basejava.model.*;
 
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class ResumeTestData {
@@ -17,7 +17,7 @@ public class ResumeTestData {
 
     static {
         RESUME_1 = new Resume("Григорий Кислин");
-        Map<ContactType, String> contacts = new HashMap<>();
+        EnumMap<ContactType, String> contacts = new EnumMap<>(ContactType.class);
         contacts.put(ContactType.PHONE, "+7(921) 855-0482");
         contacts.put(ContactType.SKYPE, "skype:grigory.kislin");
         contacts.put(ContactType.EMAIL, "gkislin@yandex.ru");
@@ -26,7 +26,7 @@ public class ResumeTestData {
         contacts.put(ContactType.PROFILE_STACKOVERFLOW, "https://stackoverflow.com/users/548473");
         contacts.put(ContactType.HOMEPAGE, "http://gkislin.ru/");
 
-        Map<SectionType, AbstractSection> sections = new HashMap<>();
+        EnumMap<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
         sections.put(SectionType.OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного " +
                 "обучения по Java Web и Enterprise технологиям"));
 
@@ -90,22 +90,21 @@ public class ResumeTestData {
     @Test
     public void print() throws Exception {
 
-        Map<ContactType, String> contacts;
-        Map<SectionType, AbstractSection> sections;
+        EnumMap<ContactType, String> contacts;
+        EnumMap<SectionType, AbstractSection> sections;
 
         System.out.println(RESUME_1.getFullName());
 
         contacts = RESUME_1.getContacts();
-        for (ContactType contactType : ContactType.values()) {
-            System.out.println(contactType.getTitle() + " " + contacts.get(contactType));
-        }
 
+        for (Map.Entry<ContactType, String> entry : contacts.entrySet()) {
+            System.out.println(entry.getKey().getTitle() + " " + entry.getValue());
+        }
         System.out.println("-----------------------------------------------------");
         sections = RESUME_1.getSections();
-        for (SectionType sectionType : SectionType.values()) {
-            System.out.println();
-            System.out.println(sectionType.getTitle());
-            sections.get(sectionType).print();
+        for (Map.Entry<SectionType, AbstractSection> entry : sections.entrySet()) {
+            System.out.println("\n" + entry.getKey().getTitle());
+            System.out.println(entry.getValue());
         }
     }
 }

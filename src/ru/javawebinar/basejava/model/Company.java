@@ -9,7 +9,7 @@ public class Company {
 
     private final String title;
     private final String website;
-    List<Period> periods = new ArrayList<>();
+    private final List<Period> periods = new ArrayList<>();
 
     public Company(String title, String website) {
 

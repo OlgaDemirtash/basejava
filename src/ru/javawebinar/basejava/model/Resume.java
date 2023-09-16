@@ -1,7 +1,6 @@
 package ru.javawebinar.basejava.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.EnumMap;
 import java.util.UUID;
 
 /**
@@ -12,8 +11,8 @@ public class Resume { // implements Comparable<Resume> {
     private final String uuid;
     private final String fullName;
 
-    private Map<ContactType, String> contacts = new HashMap<>();
-    private Map<SectionType, AbstractSection> sections = new HashMap<>();
+    private EnumMap<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private EnumMap<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     public Resume() {
 
@@ -33,22 +32,22 @@ public class Resume { // implements Comparable<Resume> {
         this.fullName = fullName;
     }
 
-    public Map<ContactType, String> getContacts() {
+    public EnumMap<ContactType, String> getContacts() {
 
         return contacts;
     }
 
-    public void setContacts(Map<ContactType, String> contacts) {
+    public void setContacts(EnumMap<ContactType, String> contacts) {
 
         this.contacts = contacts;
     }
 
-    public Map<SectionType, AbstractSection> getSections() {
+    public EnumMap<SectionType, AbstractSection> getSections() {
 
         return sections;
     }
 
-    public void setSections(Map<SectionType, AbstractSection> sections) {
+    public void setSections(EnumMap<SectionType, AbstractSection> sections) {
 
         this.sections = sections;
     }
