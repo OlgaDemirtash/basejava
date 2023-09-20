@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage extends AbstractStorage{
+public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected static final int STORAGE_LIMIT = 10000;
     protected final Resume[] storage;

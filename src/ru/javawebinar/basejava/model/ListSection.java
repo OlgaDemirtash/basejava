@@ -12,24 +12,12 @@ public class ListSection extends AbstractSection {
 
     }
 
-    @Override
-    public String toString() {
-
-        StringBuilder output = new StringBuilder();
-        for (String i : info) {
-            output.append("*    ").append(i).append("\n");
-        }
-        return output.toString();
-    }
-
     public void add(String line) {
-
         info.add(line);
     }
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (!(o instanceof ListSection that)) return false;
         return info.equals(that.info);
@@ -37,7 +25,15 @@ public class ListSection extends AbstractSection {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(info);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder output = new StringBuilder();
+        for (String i : info) {
+            output.append("*    ").append(i).append("\n");
+        }
+        return output.toString();
     }
 }

@@ -5,6 +5,7 @@ import ru.javawebinar.basejava.model.Resume;
 import java.util.*;
 
 public class MainCollections {
+
     private static final String UUID_1 = "uuid1";
     private static final Resume RESUME_1 = new Resume(UUID_1);
 
@@ -38,8 +39,7 @@ public class MainCollections {
                 iterator.remove();
             }
         }
-        System.out.println(collection.toString());
-
+        System.out.println(collection);
 
         Map<String, Resume> map = new HashMap<>();
         map.put(UUID_1, RESUME_1);
@@ -54,7 +54,6 @@ public class MainCollections {
         for (Map.Entry<String, Resume> entry : map.entrySet()) {
             System.out.println(entry.getValue());
         }
-
 
         List<Resume> resumes = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
         resumes.remove(1);

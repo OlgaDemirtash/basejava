@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
  * (just run, no need to understand)
  */
 public class MainArray {
+
     private final static SortedArrayStorage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) throws IOException {

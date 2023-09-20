@@ -15,50 +15,41 @@ public class Resume { // implements Comparable<Resume> {
     private EnumMap<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     public Resume() {
-
         this.uuid = UUID.randomUUID().toString();
         fullName = "";
     }
 
     public Resume(String fullName) {
-
         this.uuid = UUID.randomUUID().toString();
         this.fullName = fullName;
     }
 
     public Resume(String uuid, String fullName) {
-
         this.uuid = uuid;
         this.fullName = fullName;
     }
 
     public EnumMap<ContactType, String> getContacts() {
-
         return contacts;
     }
 
     public void setContacts(EnumMap<ContactType, String> contacts) {
-
         this.contacts = contacts;
     }
 
     public EnumMap<SectionType, AbstractSection> getSections() {
-
         return sections;
     }
 
     public void setSections(EnumMap<SectionType, AbstractSection> sections) {
-
         this.sections = sections;
     }
 
     public String getFullName() {
-
         return fullName;
     }
 
     public String getUuid() {
-
         return uuid;
     }
 
@@ -79,9 +70,4 @@ public class Resume { // implements Comparable<Resume> {
     public String toString() {
         return uuid;
     }
-
-//    @Override
-//    public int compareTo(Resume o) {
-//        return uuid.compareTo(o.uuid);
-//    }
 }
