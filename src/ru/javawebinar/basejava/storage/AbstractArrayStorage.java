@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
 
     protected static final int STORAGE_LIMIT = 10000;
     protected final Resume[] storage;
@@ -32,36 +32,36 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doUpdate(Resume r, Object searchKey) {
-        storage[(int) searchKey] = r;
+    protected void doUpdate(Resume r, Integer index) {
+        storage[index] = r;
     }
 
     @Override
-    protected void doSave(Resume r, Object searchKey) {
+    protected void doSave(Resume r, Integer index) {
 
         if (size == storage.length) {
             throw new StorageException("Хранилище переполнено", r.getUuid());
         } else {
-            insertResume(r, searchKey);
+            insertResume(r, index);
             size++;
         }
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        return storage[(int) searchKey];
+    protected Resume doGet(Integer index) {
+        return storage[index];
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
-        removeResume((int) searchKey);
+    protected void doDelete(Integer index) {
+        removeResume(index);
         storage[size - 1] = null;
         size--;
     }
 
     @Override
-    public boolean isExist(Object searchKey) {
-        return (int) searchKey >= 0;
+    public boolean isExist(Integer index) {
+        return index >= 0;
     }
 
     @Override
@@ -69,9 +69,14 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return Arrays.stream(Arrays.copyOf(storage, size)).collect(Collectors.toList());
     }
 
-    protected abstract void insertResume(Resume r, Object searchKey);
+    protected abstract void insertResume(Resume r, Integer index);
 
-    protected abstract void removeResume(int index);
+    protected abstract void removeResume(Integer index);
 
-    protected abstract Object getSearchKey(String uuid);
+    protected abstract Integer getSearchKey(String uuid);
+
+    @Override
+    public List<Resume> doCopyAll() {
+        return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
+    }
 }

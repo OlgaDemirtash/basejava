@@ -2,12 +2,9 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class MapResumeStorage extends AbstractStorage {
+public class MapResumeStorage extends AbstractStorage<Resume> {
 
     protected final Map<String, Resume> storage = new HashMap<>();
 
@@ -22,23 +19,23 @@ public class MapResumeStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
+    protected Resume getSearchKey(String uuid) {
         return storage.get(uuid);
     }
 
     @Override
-    protected void doSave(Resume r, Object searchKey) {
+    protected void doSave(Resume r, Resume searchKey) {
 
         storage.put(r.getUuid(), r);
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
+    protected void doDelete(Resume searchKey) {
         storage.remove(doGet(searchKey).getUuid());
     }
 
     @Override
-    protected void doUpdate(Resume r, Object searchKey) {
+    protected void doUpdate(Resume r, Resume searchKey) {
         storage.replace(doGet(searchKey).getUuid(), r);
     }
 
@@ -48,15 +45,20 @@ public class MapResumeStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
+    protected Resume doGet(Resume searchKey) {
 
         return (Resume) searchKey;
     }
 
     @Override
-    public boolean isExist(Object searchKey) {
+    public boolean isExist(Resume searchKey) {
 
         return searchKey != null;
+    }
+
+    @Override
+    public List<Resume> doCopyAll() {
+        return new ArrayList<>(storage.values());
     }
 }
 

@@ -1,15 +1,15 @@
 package ru.javawebinar.basejava.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class CompanySection extends AbstractSection {
 
-    protected final List<Company> companies = new ArrayList<>();
+    protected final List<Company> companies;
 
-    public CompanySection() {
-
+    public CompanySection(List<Company> companies) {
+        Objects.requireNonNull(companies, "Companies must not be Null");
+        this.companies = companies;
     }
 
     public List<Company> getCompanies() {

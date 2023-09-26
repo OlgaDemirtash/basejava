@@ -8,12 +8,13 @@ import java.util.Objects;
 public class Company {
 
     private final String title;
-    private final String website;
+    private final Link website;
     private final List<Period> periods = new ArrayList<>();
 
     public Company(String title, String website) {
+        Objects.requireNonNull(title, "title must not be null");
         this.title = title;
-        this.website = website;
+        this.website = new Link(title, website);
     }
 
     public String getTitle() {
@@ -21,7 +22,7 @@ public class Company {
     }
 
     public String getWebsite() {
-        return website;
+        return website.getUrl();
     }
 
     public List<Period> getPeriods() {
@@ -47,7 +48,7 @@ public class Company {
 
     @Override
     public String toString() {
-        return title + " " + website;
+        return title + " " + website.getUrl();
     }
 }
 
